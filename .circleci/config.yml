@@ -1,0 +1,13 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/kotlin-playground
+    docker:
+      - image: zenika/kotlin:1.3-jdk11
+    steps:
+      - checkout
+      - run: kotlinc -version
+      - run: kotlinc-jvm HelloWorld.kt
+      - run: kotlinc HelloWorld.kt -include-runtime -d helloworld.jar
+      - run: kotlin helloworld.jar
+      - run: java -classpath .:/usr/lib/kotlinc/lib/kotlin-runner.jar HelloWorldKt
