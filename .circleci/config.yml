@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/kotlin-playground
     docker:
-      - image: zenika/kotlin:1.3-jdk11
+      - image: zenika/kotlin:1.4-jdk11
     steps:
       - checkout
       - run: kotlinc -version
