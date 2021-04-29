@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     working_directory: ~/kotlin-playground
@@ -11,3 +11,18 @@ jobs:
       - run: kotlinc HelloWorld.kt -include-runtime -d helloworld.jar
       - run: kotlin helloworld.jar
       - run: java -classpath .:/usr/lib/kotlinc/lib/kotlin-runner.jar HelloWorldKt
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+  daily_workflow:
+    triggers:
+      - schedule:
+          cron: "0 20 * * *"
+          filters:
+            branches:
+              only: /master/
+    jobs:
+      - build
