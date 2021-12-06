@@ -1,22 +1,36 @@
 version: 2.1
 jobs:
-  build:
+  sdkman:
     working_directory: ~/kotlin-playground
     docker:
-      - image: zenika/kotlin:1.4-jdk11
+      - image: cimg/openjdk:17.0.0
     steps:
       - checkout
+      - run: sudo apt update && sudo apt install curl
+      - run:
+          name: Installing SDKMAN!
+          command: |
+            curl -s "https://get.sdkman.io" | bash
+            echo sdkman_auto_answer=true > $HOME/.sdkman/etc/config
+            echo sdkman_auto_selfupdate=true >> $HOME/.sdkman/etc/config
+            source "$HOME/.sdkman/bin/sdkman-init.sh"
+            echo 'export SDKMAN_DIR="$HOME/.sdkman"' >> $BASH_ENV
+            echo 'source "$HOME/.sdkman/bin/sdkman-init.sh"' >> $BASH_ENV
+      - run: sdk version
+      - run: sdk install kotlin
+      - run: java -version
+      - run: javac -version
       - run: kotlinc -version
       - run: kotlinc-jvm HelloWorld.kt
       - run: kotlinc HelloWorld.kt -include-runtime -d helloworld.jar
       - run: kotlin helloworld.jar
-      - run: java -classpath .:/usr/lib/kotlinc/lib/kotlin-runner.jar HelloWorldKt
+      - run: java -classpath .:$HOME/.sdkman/candidates/kotlin/1.6.0/lib/kotlin-runner.jar HelloWorldKt          
 
 workflows:
   version: 2
   build:
     jobs:
-      - build
+      - sdkman
   daily_workflow:
     triggers:
       - schedule:
@@ -25,4 +39,4 @@ workflows:
             branches:
               only: /master/
     jobs:
-      - build
+      - sdkman
