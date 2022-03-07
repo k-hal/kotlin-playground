@@ -3,7 +3,7 @@ jobs:
   sdkman:
     working_directory: ~/kotlin-playground
     docker:
-      - image: cimg/openjdk:17.0.0
+      - image: cimg/openjdk:17.0.2
     steps:
       - checkout
       - run: sudo apt update && sudo apt install curl
