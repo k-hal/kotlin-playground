@@ -24,7 +24,7 @@ jobs:
       - run: kotlinc-jvm HelloWorld.kt
       - run: kotlinc HelloWorld.kt -include-runtime -d helloworld.jar
       - run: kotlin helloworld.jar
-      - run: java -classpath .:$HOME/.sdkman/candidates/kotlin/1.7.0/lib/kotlin-runner.jar HelloWorldKt          
+      - run: java -classpath .:$HOME/.sdkman/candidates/kotlin/1.7.10/lib/kotlin-runner.jar HelloWorldKt          
 
 workflows:
   version: 2
