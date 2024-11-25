@@ -3,7 +3,7 @@ jobs:
   sdkman:
     working_directory: ~/kotlin-playground
     docker:
-      - image: cimg/openjdk:21.0.2
+      - image: cimg/openjdk:21.0.5
     steps:
       - checkout
       - run: sudo apt update && sudo apt install curl
@@ -25,7 +25,7 @@ jobs:
       - run: kotlinc HelloWorld.kt -include-runtime -d helloworld.jar
       - run: kotlin helloworld.jar
       - run: java -jar helloworld.jar
-      - run: java -classpath .:$HOME/.sdkman/candidates/kotlin/1.9.21/lib/kotlin-runner.jar HelloWorldKt
+      - run: java -classpath .:$HOME/.sdkman/candidates/kotlin/2.0.21/lib/kotlin-runner.jar HelloWorldKt
 workflows:
   version: 2
   build:
