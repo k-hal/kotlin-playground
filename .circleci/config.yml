@@ -17,7 +17,7 @@ jobs:
             echo 'export SDKMAN_DIR="$HOME/.sdkman"' >> $BASH_ENV
             echo 'source "$HOME/.sdkman/bin/sdkman-init.sh"' >> $BASH_ENV
       - run: sdk version
-      - run: sdk install kotlin
+      - run: sdk env install && sdk env
       - run: java -version
       - run: javac -version
       - run: kotlinc -version
